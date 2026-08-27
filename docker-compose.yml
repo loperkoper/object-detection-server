@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  object-detection:
+    build: .
+    container_name: object-detection-server
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DEBUG=False
+      - MODEL_PATH=yolov8m.pt
+    volumes:
+      - ./logs:/app/logs
+    restart: always
+    networks:
+      - detection-network
+
+networks:
+  detection-network:
+    driver: bridge
